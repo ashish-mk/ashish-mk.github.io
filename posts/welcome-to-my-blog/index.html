@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to My Blog: Systems, Quant, and Architecture — Ashish Kulkarni</title>
+  <meta name="description" content="An introduction to my personal blog where I plan to write about financial data pipelines, statistical modeling, distributed systems, and engineering leadership.">
+  <link rel="icon" type="image/svg+xml" href="../../static/favicon.svg">
+  <link rel="stylesheet" href="../../static/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Ashish Kulkarni's Blog" href="../../rss.xml">
+</head>
+<body>
+  <div class="site-wrap">
+    <header class="site-header">
+      <a href="../../index.html" class="brand">
+        <span class="brand-dot"></span>
+        Ashish Kulkarni
+      </a>
+      <nav class="site-nav">
+        <a href="../../index.html" class="">Home</a>
+        <a href="../../blog/index.html" class="">Blog</a>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">🌙 Dark</button>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+  <a href="../../blog/index.html" class="back-link">← Back to all posts</a>
+
+  <header class="post-header">
+    <h1>Welcome to My Blog: Systems, Quant, and Architecture</h1>
+    <div class="post-meta">
+      <time datetime="2026-11-21">Nov 21, 2026</time>
+      <span>·</span>
+      <span>1 min read</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Engineering</span> <span class="tag">Quant</span> <span class="tag">Architecture</span>
+    </div>
+  </header>
+
+  <div class="post-body">
+    <p>Welcome to my personal site and blog!</p>
+<p>Over the past nine years working in commodity trading strategies and quantitative tech at <strong>D. E. Shaw</strong>, I have tackled many fascinating technical challenges—from ingesting and transforming messy fundamental data at scale, to designing statistical forecasting models and low-latency analytics tools.</p>
+<p>I created this space as a personal notebook to share insights, lessons learned, and deep-dives into:</p>
+<ul>
+  <li><strong>Resilient Data Pipelines:</strong> Architectural patterns for ingesting, validating, and cleaning large-scale market data.</li>
+  <li><strong>Statistical Modeling & Simulation:</strong> Bridging quantitative theory and production-grade software engineering.</li>
+  <li><strong>Web Analytics & Tooling:</strong> Building performant, intuitive tools for decision-makers and option traders.</li>
+  <li><strong>Engineering Leadership:</strong> Mentoring engineers, managing technical groups, and scaling systems.</li>
+</ul>
+<h3>A Quick Code Example</h3>
+<p>Here is a quick Python snippet illustrating the clean, minimalist styling supported right out of the box:</p>
+<pre><code class="language-python">from dataclasses import dataclass
+from typing import List
+
+@dataclass
+class MarketSignal:
+    timestamp: str
+    commodity: str
+    forecast_delta: float
+
+def filter_signals(signals: List[MarketSignal], threshold: float = 0.05) -&gt; List[MarketSignal]:
+    &quot;&quot;&quot;Filters market signals exceeding an alpha significance threshold.&quot;&quot;&quot;
+    return [s for s in signals if abs(s.forecast_delta) &gt;= threshold]</code></pre>
+<blockquote>"Simplicity is prerequisite for reliability." — Edsger W. Dijkstra</blockquote>
+<p>Stay tuned for upcoming technical write-ups. You can also connect with me on <a href="https://www.linkedin.com/in/ashishmkulkarni/">LinkedIn</a> or check out my work on <a href="https://github.com/ashishmkulkarni">GitHub</a>.</p>
+  </div>
+
+  <hr style="margin: 40px 0 20px;">
+  <div style="font-size: 0.92rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <span>Written by <strong>Ashish Kulkarni</strong></span>
+    <a href="https://www.linkedin.com/in/ashishmkulkarni/" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Connect on LinkedIn →</a>
+  </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+      <div>© 2026 Ashish Kulkarni. All rights reserved.</div>
+      <div>
+        <a href="https://www.linkedin.com/in/ashishmkulkarni/" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="https://github.com/ashishmkulkarni" target="_blank" rel="noopener">GitHub</a> ·
+        <a href="../../rss.xml">RSS</a>
+      </div>
+    </footer>
+  </div>
+  <script src="../../static/js/main.js"></script>
+</body>
+</html>

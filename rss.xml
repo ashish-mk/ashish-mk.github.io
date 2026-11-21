@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Ashish Kulkarni's Blog</title>
+    <link>https://github.com/ashishmkulkarni.github.io</link>
+    <description>Principal Manager, Tech at D. E. Shaw in the commodities trading strategy team. Over nine years of experience leading initiatives to acquire fundamental market data, develop statistical models for commodities, and build web-based analytical tools for options analytics and quantitative trading.</description>
+    <language>en-us</language>
+    
+    <item>
+      <title>Welcome to My Blog: Systems, Quant, and Architecture</title>
+      <link>https://github.com/ashishmkulkarni.github.io/posts/welcome-to-my-blog/</link>
+      <description>An introduction to my personal blog where I plan to write about financial data pipelines, statistical modeling, distributed systems, and engineering leadership.</description>
+      <pubDate>2026-11-21</pubDate>
+      <guid>https://github.com/ashishmkulkarni.github.io/posts/welcome-to-my-blog/</guid>
+    </item>
+  </channel>
+</rss>
