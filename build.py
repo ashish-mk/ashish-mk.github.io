@@ -182,8 +182,6 @@ def markdown_to_html(md_text: str) -> str:
 
 def inline_markdown(text: str) -> str:
     """Parses inline bold, italic, code, links, images."""
-    # Escape special characters that aren't markdown syntax
-    # Placeholder for code blocks
     code_tokens = []
     def code_sub(m):
         code_tokens.append(m.group(1))
@@ -228,12 +226,14 @@ def format_date(date_str: str) -> str:
 
 def build():
     config = load_config()
-    print("Building site for:", config["name"])
+    blog_name = config.get("blog_name", "Signals & Systems")
+    print(f"Building site for: {config['name']} (Blog: {blog_name})")
 
     # Prepare dist directory
     if DIST_DIR.exists():
         shutil.rmtree(DIST_DIR)
     DIST_DIR.mkdir(parents=True, exist_ok=True)
+    (DIST_DIR / "about").mkdir(parents=True, exist_ok=True)
     (DIST_DIR / "blog").mkdir(parents=True, exist_ok=True)
     (DIST_DIR / "posts").mkdir(parents=True, exist_ok=True)
 
@@ -246,6 +246,8 @@ def build():
         base_template = f.read()
     with open(TEMPLATES_DIR / "index.html", "r", encoding="utf-8") as f:
         index_template = f.read()
+    with open(TEMPLATES_DIR / "about.html", "r", encoding="utf-8") as f:
+        about_template = f.read()
     with open(TEMPLATES_DIR / "blog.html", "r", encoding="utf-8") as f:
         blog_template = f.read()
     with open(TEMPLATES_DIR / "post.html", "r", encoding="utf-8") as f:
@@ -277,16 +279,18 @@ def build():
 
     current_year = str(datetime.now().year)
 
-    def apply_base(content: str, title: str, meta_desc: str, base_path: str, is_home=False, is_blog=False):
+    def apply_base(content: str, title: str, meta_desc: str, base_path: str, is_home=False, is_about=False, is_blog=False):
         page_html = base_template
         page_html = page_html.replace("{{page_title}}", title)
         page_html = page_html.replace("{{meta_description}}", meta_desc)
         page_html = page_html.replace("{{name}}", config["name"])
+        page_html = page_html.replace("{{blog_name}}", blog_name)
         page_html = page_html.replace("{{linkedin_url}}", config["linkedin_url"])
         page_html = page_html.replace("{{github_url}}", config["github_url"])
         page_html = page_html.replace("{{year}}", current_year)
         page_html = page_html.replace("{{base_path}}", base_path)
         page_html = page_html.replace("{{nav_home_class}}", "active" if is_home else "")
+        page_html = page_html.replace("{{nav_about_class}}", "active" if is_about else "")
         page_html = page_html.replace("{{nav_blog_class}}", "active" if is_blog else "")
         page_html = page_html.replace("{{content}}", content)
         return page_html
@@ -308,11 +312,12 @@ def build():
         content = content.replace("{{post_tags_html}}", tags_html)
         content = content.replace("{{post_body_html}}", p["body_html"])
         content = content.replace("{{name}}", config["name"])
+        content = content.replace("{{blog_name}}", html.escape(blog_name))
         content = content.replace("{{linkedin_url}}", config["linkedin_url"])
 
         full_html = apply_base(
             content=content,
-            title=f"{p['title']} — {config['name']}",
+            title=f"{p['title']} — {blog_name}",
             meta_desc=p["summary"],
             base_path=base_path
         )
@@ -347,96 +352,57 @@ def build():
 
     # --- Render Blog Archive ---
     blog_content = blog_template
+    blog_content = blog_content.replace("{{blog_name}}", html.escape(blog_name))
     blog_content = blog_content.replace("{{all_posts_html}}", render_post_list(posts, "../"))
     blog_page = apply_base(
         content=blog_content,
-        title=f"Blog & Writing — {config['name']}",
-        meta_desc=f"Technical writings and articles by {config['name']}",
+        title=f"{blog_name} — {config['name']}",
+        meta_desc=f"{blog_name} — Technical writings and articles by {config['name']}",
         base_path="../",
         is_blog=True
     )
     with open(DIST_DIR / "blog" / "index.html", "w", encoding="utf-8") as f:
         f.write(blog_page)
 
-    # --- Render Home Page ---
-    # Build Experience HTML
-    exp_html = []
-    for exp in config["experience"]:
-        company = html.escape(exp["company"])
-        roles_html = []
-        for r in exp["roles"]:
-            roles_html.append(f"""
-            <div class="role-block">
-              <div class="role-header">
-                <span class="role-title">{html.escape(r['title'])}</span>
-                <span class="role-period">{html.escape(r['period'])}</span>
-              </div>
-              <div class="role-desc">{html.escape(r['description'])}</div>
-            </div>
-            """)
-        exp_html.append(f"""
-        <div class="company-block">
-          <div class="company-name">{company}</div>
-          {"".join(roles_html)}
-        </div>
-        """)
+    # --- Render About Page ---
+    current_role = config.get("current_role", {})
+    about_text_html = "\n".join([f"<p>{html.escape(p)}</p>" for p in config.get("about_paragraphs", [])])
 
-    # Build Education & Certs HTML
-    edu_certs_html = []
-    for edu in config["education"]:
-        edu_certs_html.append(f"""
-        <div class="card">
-          <div class="card-title">{html.escape(edu['institution'])}</div>
-          <div class="card-subtitle">{html.escape(edu['degree'])}</div>
-          <div class="card-meta">{html.escape(edu['period'])} · <strong>{html.escape(edu['grade'])}</strong></div>
-        </div>
-        """)
-    for cert in config["certifications"]:
-        cid_str = f" · ID: {html.escape(cert['credential_id'])}" if "credential_id" in cert else ""
-        edu_certs_html.append(f"""
-        <div class="card">
-          <div class="card-title">{html.escape(cert['title'])}</div>
-          <div class="card-subtitle">{html.escape(cert['issuer'])}</div>
-          <div class="card-meta">Issued {html.escape(cert['issued'])}{cid_str}</div>
-        </div>
-        """)
+    about_content = about_template
+    about_content = about_content.replace("{{base_path}}", "../")
+    about_content = about_content.replace("{{name}}", html.escape(config["name"]))
+    about_content = about_content.replace("{{title}}", html.escape(config["title"]))
+    about_content = about_content.replace("{{current_role_title}}", html.escape(current_role.get("title", "")))
+    about_content = about_content.replace("{{current_role_company}}", html.escape(current_role.get("company", "")))
+    about_content = about_content.replace("{{current_role_period}}", html.escape(current_role.get("period", "")))
+    about_content = about_content.replace("{{current_role_description}}", html.escape(current_role.get("description", "")))
+    about_content = about_content.replace("{{about_text_html}}", about_text_html)
+    about_content = about_content.replace("{{linkedin_url}}", config["linkedin_url"])
+    about_content = about_content.replace("{{github_url}}", config["github_url"])
 
-    # Build Projects HTML
-    proj_html = []
-    for proj in config["projects"]:
-        ptags = " ".join([f'<span class="tag">{html.escape(t)}</span>' for t in proj.get("tags", [])])
-        proj_html.append(f"""
-        <div class="card">
-          <div class="card-title">{html.escape(proj['name'])}</div>
-          <div class="card-desc">{html.escape(proj['description'])}</div>
-          <div class="tags">{ptags}</div>
-        </div>
-        """)
+    about_page = apply_base(
+        content=about_content,
+        title=f"About — {config['name']}",
+        meta_desc=f"About {config['name']} — {config['title']}",
+        base_path="../",
+        is_about=True
+    )
+    with open(DIST_DIR / "about" / "index.html", "w", encoding="utf-8") as f:
+        f.write(about_page)
 
-    # Build Skills HTML
-    skills_html = "".join([f'<span class="skill-pill">{html.escape(s)}</span>' for s in config["skills"]])
-
-    # Build Recent Posts (top 3)
+    # --- Render Minimal Home Page ---
     recent_posts_html = render_post_list(posts[:3], "./")
 
     index_content = index_template
     index_content = index_content.replace("{{base_path}}", "./")
     index_content = index_content.replace("{{name}}", html.escape(config["name"]))
-    index_content = index_content.replace("{{title}}", html.escape(config["title"]))
-    index_content = index_content.replace("{{tagline}}", html.escape(config["tagline"]))
-    index_content = index_content.replace("{{bio}}", html.escape(config["bio"]))
-    index_content = index_content.replace("{{linkedin_url}}", config["linkedin_url"])
-    index_content = index_content.replace("{{github_url}}", config["github_url"])
-    index_content = index_content.replace("{{experience_html}}", "\n".join(exp_html))
-    index_content = index_content.replace("{{education_and_certs_html}}", "\n".join(edu_certs_html))
-    index_content = index_content.replace("{{projects_html}}", "\n".join(proj_html))
-    index_content = index_content.replace("{{skills_html}}", skills_html)
+    index_content = index_content.replace("{{blog_name}}", html.escape(blog_name))
     index_content = index_content.replace("{{recent_posts_html}}", recent_posts_html)
 
     home_page = apply_base(
         content=index_content,
-        title=f"{config['name']} — {config['title']}",
-        meta_desc=config["bio"],
+        title=f"{config['name']} — Personal Website",
+        meta_desc=f"This is a personal website for {config['name']} where he shares his experiences and thoughts.",
         base_path="./",
         is_home=True
     )
@@ -444,23 +410,24 @@ def build():
         f.write(home_page)
 
     # --- Generate RSS 2.0 Feed ---
+    site_url = config.get("site_url", "https://ashish-mk.github.io").rstrip("/")
     rss_items = []
     for p in posts:
         rss_items.append(f"""
     <item>
       <title>{html.escape(p['title'])}</title>
-      <link>{config['github_url']}.github.io/posts/{p['slug']}/</link>
+      <link>{site_url}/posts/{p['slug']}/</link>
       <description>{html.escape(p['summary'])}</description>
       <pubDate>{p['date']}</pubDate>
-      <guid>{config['github_url']}.github.io/posts/{p['slug']}/</guid>
+      <guid>{site_url}/posts/{p['slug']}/</guid>
     </item>""")
 
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>{html.escape(config['name'])}'s Blog</title>
-    <link>{config['github_url']}.github.io</link>
-    <description>{html.escape(config['bio'])}</description>
+    <title>{html.escape(blog_name)}</title>
+    <link>{site_url}</link>
+    <description>{html.escape(blog_name)} by {html.escape(config['name'])}</description>
     <language>en-us</language>
     {''.join(rss_items)}
   </channel>
@@ -469,7 +436,7 @@ def build():
     with open(DIST_DIR / "rss.xml", "w", encoding="utf-8") as f:
         f.write(rss_xml)
 
-    print(f"✓ Build complete: generated index.html, blog archive, {len(posts)} posts, and rss.xml into dist/")
+    print(f"✓ Build complete: generated index.html, about/index.html, blog archive, {len(posts)} posts, and rss.xml into dist/")
 
 
 if __name__ == "__main__":

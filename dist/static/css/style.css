@@ -1,13 +1,13 @@
 :root {
-  --bg: #ffffff;
-  --bg-secondary: #f8fafc;
+  --bg: #f8f9fa;
+  --bg-secondary: #f1f3f5;
   --bg-card: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
-  --code-bg: #f1f5f9;
+  --code-bg: #edf2f7;
   --code-text: #0f172a;
   --badge-bg: #e0f2fe;
   --badge-text: #0369a1;
@@ -132,7 +132,7 @@ main {
 
 /* Hero Section */
 .hero {
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .hero h1 {
@@ -192,14 +192,14 @@ main {
 
 /* Section Common */
 .section {
-  margin-top: 48px;
+  margin-top: 40px;
 }
 
 .section-title {
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -218,116 +218,72 @@ main {
   text-decoration: underline;
 }
 
-/* Experience Timeline */
-.timeline {
-  position: relative;
-  padding-left: 20px;
-  border-left: 2px solid var(--timeline-line);
+/* About Page Specific Styles */
+.about-meta {
+  margin-top: 6px;
+  display: flex;
+  gap: 12px;
 }
 
-.company-block {
-  margin-bottom: 28px;
-  position: relative;
+.location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
-.company-block::before {
-  content: "";
-  position: absolute;
-  left: -26px;
-  top: 4px;
-  width: 10px;
-  height: 10px;
-  background-color: var(--accent);
-  border-radius: 50%;
-  border: 2px solid var(--bg);
+.current-role-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
 }
 
-.company-name {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-main);
-}
-
-.role-block {
-  margin-top: 10px;
-  padding-left: 8px;
-}
-
-.role-header {
+.current-role-card .role-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
 }
 
-.role-title {
-  font-weight: 600;
-  font-size: 0.98rem;
+.current-role-card .role-title {
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--text-main);
 }
 
-.role-period {
-  font-size: 0.84rem;
+.current-role-card .role-period {
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
-.role-desc {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  line-height: 1.5;
-}
-
-/* Cards (Education, Certs, Projects) */
-.card-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-@media (min-width: 600px) {
-  .card-grid.cols-2 {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px 18px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-
-.card:hover {
-  border-color: var(--accent);
-  box-shadow: var(--shadow);
-}
-
-.card-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-main);
-  margin-bottom: 4px;
-}
-
-.card-subtitle {
-  font-size: 0.88rem;
+.current-role-card .current-role-company {
+  font-size: 0.95rem;
   color: var(--accent);
-  margin-bottom: 6px;
+  font-weight: 500;
+  margin-top: 3px;
 }
 
-.card-meta {
-  font-size: 0.82rem;
+.current-role-card .role-desc {
+  font-size: 0.95rem;
   color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.55;
 }
 
-.card-desc {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-top: 6px;
-  line-height: 1.5;
+.about-narrative p {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+}
+
+.about-narrative p:last-child {
+  margin-bottom: 0;
 }
 
 /* Badges & Tags */
@@ -345,22 +301,6 @@ main {
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 0.78rem;
-  font-weight: 500;
-}
-
-.skills-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.skill-pill {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-size: 0.88rem;
   font-weight: 500;
 }
 

@@ -1,84 +1,19 @@
 {
   "name": "Ashish Kulkarni",
+  "blog_name": "Notes",
   "title": "Principal Manager, Tech at D. E. Shaw",
-  "tagline": "Commodities Trading Strategy · Quant Systems · Data Architecture",
-  "location": "Hyderabad, Telangana, India",
+  "site_url": "https://ashish-mk.github.io",
   "linkedin_url": "https://www.linkedin.com/in/ashishmkulkarni/",
-  "github_url": "https://github.com/ashishmkulkarni",
-  "bio": "Principal Manager, Tech at D. E. Shaw in the commodities trading strategy team. Over nine years of experience leading initiatives to acquire fundamental market data, develop statistical models for commodities, and build web-based analytical tools for options analytics and quantitative trading.",
-  "experience": [
-    {
-      "company": "D. E. Shaw India Private Limited",
-      "roles": [
-        {
-          "title": "Principal Manager, Tech",
-          "period": "Dec 2024 – Present",
-          "description": "Leading technological initiatives in the commodities trading strategy team, overseeing data engineering, modeling platforms, and analytical tool suites."
-        },
-        {
-          "title": "Lead Tech",
-          "period": "Aug 2021 – Dec 2024",
-          "description": "Led the Fundamentals group responsible for acquiring fundamental commodities data and building statistical models. Led initiatives building web-based analytical and market intelligence tools."
-        },
-        {
-          "title": "Senior Member Technical",
-          "period": "Jan 2019 – Jul 2021",
-          "description": "Developed simulations and machine learning pipelines to forecast price trends in US commodities markets."
-        },
-        {
-          "title": "Member Technical",
-          "period": "Jul 2017 – Dec 2018",
-          "description": "Engineered robust data pipelines to acquire fundamental commodities data; contributed to statistical modeling and reporting infrastructure."
-        }
-      ]
-    },
-    {
-      "company": "Microsoft",
-      "roles": [
-        {
-          "title": "Software Development Intern",
-          "period": "May 2016 – Jul 2016",
-          "description": "Developed an Android application for hyper-local news and shopping offers."
-        }
-      ]
-    }
-  ],
-  "education": [
-    {
-      "institution": "COEP Technological University",
-      "degree": "Bachelor of Technology (BTech), Computer Engineering",
-      "period": "2013 – 2017",
-      "grade": "Grade: 9.18 / 10"
-    }
-  ],
-  "certifications": [
-    {
-      "title": "CFA Program Level I",
-      "issuer": "CFA Institute",
-      "issued": "Oct 2025",
-      "credential_id": "162818138"
-    }
-  ],
-  "projects": [
-    {
-      "name": "COEP's Satellite Initiative — \"Swayam\"",
-      "description": "Member of the undergraduate engineering team that developed Swayam, a 1-U picosatellite (CubeSat) designed and built by students of COEP and successfully launched into orbit.",
-      "tags": ["Aerospace", "Embedded Systems", "Engineering"]
-    },
-    {
-      "name": "Kaggle Outbrain Click Prediction",
-      "description": "Engineered machine learning models predicting user click-through rates on sponsored content recommendations under large-scale categorical features.",
-      "tags": ["Machine Learning", "Python"]
-    }
-  ],
-  "skills": [
-    "Python",
-    "Statistical Modeling",
-    "Data Pipelines & ETL",
-    "Machine Learning",
-    "JavaScript & React.js",
-    "SQL & MongoDB",
-    "Commodities Trading Systems",
-    "System Architecture"
+  "github_url": "https://github.com/ashish-mk",
+  "bio": "A personal website where I share experiences and thoughts.",
+  "current_role": {
+    "title": "Principal Manager, Tech",
+    "company": "D. E. Shaw India Private Limited",
+    "period": "Dec 2024 – Present",
+    "description": "Leading technological initiatives in the commodities trading strategy team, overseeing data engineering, modeling platforms, and analytical tool suites."
+  },
+  "about_paragraphs": [
+    "I am a Principal Manager, Tech at D. E. Shaw within the commodities trading strategy team, with over nine years of experience engineering high-performance quantitative systems and data platforms. My work centers on architecting scalable data pipelines to ingest and process large-scale fundamental commodities market data, developing statistical and machine learning models for market forecasting, and building web-based analytical tool suites for options analytics and quantitative trading.",
+    "My technical skill sets span quantitative software engineering and data architecture—including Python, statistical modeling, high-throughput ETL pipelines, machine learning workflows, and distributed systems design. In addition, I build intuitive analytical interfaces using modern JavaScript, React, SQL, and MongoDB, bridging complex quantitative models with responsive, high-performance tooling for traders and researchers."
   ]
 }
