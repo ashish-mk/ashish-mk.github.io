@@ -436,6 +436,18 @@ def build():
     with open(DIST_DIR / "rss.xml", "w", encoding="utf-8") as f:
         f.write(rss_xml)
 
+    # --- Static helpers: CNAME & .nojekyll for GitHub Pages ---
+    (DIST_DIR / ".nojekyll").touch()
+
+    cname_val = config.get("custom_domain") or config.get("cname")
+    if not cname_val and (ROOT_DIR / "CNAME").exists():
+        with open(ROOT_DIR / "CNAME", "r", encoding="utf-8") as f:
+            cname_val = f.read().strip()
+
+    if cname_val:
+        with open(DIST_DIR / "CNAME", "w", encoding="utf-8") as f:
+            f.write(cname_val.strip())
+
     print(f"✓ Build complete: generated index.html, about/index.html, blog archive, {len(posts)} posts, and rss.xml into dist/")
 
 
